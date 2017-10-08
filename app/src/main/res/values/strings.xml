@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CardDrop\\</string>
+    <string name="preference_Login">Login</string>
+    <string name="preference_Login_Status">LoginStatus</string>
+</resources>
