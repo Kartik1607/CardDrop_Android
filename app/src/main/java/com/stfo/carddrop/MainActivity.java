@@ -1,11 +1,13 @@
 package com.stfo.carddrop;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.stfo.carddrop.Utils.Constants;
+import com.stfo.carddrop.activities.HomeActivity;
+import com.stfo.carddrop.activities.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
                 false
         );
         if(isLoggedIn) {
-
+            startActivity(new Intent(this, HomeActivity.class));
         } else {
-
+            startActivity(new Intent(this, LoginActivity.class));
         }
     }
 }
