@@ -1,6 +1,7 @@
 package com.stfo.carddrop.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -109,7 +110,7 @@ public class LoginActivity extends Activity {
     }
 
     public void onClickSignUp(View v) {
-        Toast.makeText(this,"Clicked", Toast.LENGTH_LONG).show();
+        startActivity(new Intent(this, SignUpActivity.class));
     }
 
     public void onClickLogin(View v) {
