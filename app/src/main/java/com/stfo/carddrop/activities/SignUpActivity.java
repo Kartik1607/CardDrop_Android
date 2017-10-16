@@ -2,6 +2,7 @@ package com.stfo.carddrop.activities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -23,11 +24,21 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.stfo.carddrop.R;
+import com.stfo.carddrop.utils.Constants;
+
+import net.gotev.uploadservice.MultipartUploadRequest;
+import net.gotev.uploadservice.ServerResponse;
+import net.gotev.uploadservice.UploadInfo;
+import net.gotev.uploadservice.UploadNotificationConfig;
+import net.gotev.uploadservice.UploadStatusDelegate;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by Kartik on 10/14/2017.
@@ -78,8 +89,8 @@ public class SignUpActivity extends Activity  implements View.OnClickListener{
         if(STATUS == IMAGE_STATUS.NOT_TAKEN) {
             checkPermissionAndTakeImage();
         } else {
-            //TODO : SEND IMAGE TO NEXT ACTIVITY
             Intent intent = new Intent(this, SignUpDetails.class);
+            intent.putExtra(Constants.INTENT_IMAGE_PATH, imageFileCurrent.getAbsolutePath());
             startActivity(intent);
         }
     }
@@ -149,6 +160,9 @@ public class SignUpActivity extends Activity  implements View.OnClickListener{
             tv_Retake.setVisibility(View.VISIBLE);
             button_Scan.setText("Next");
             STATUS = IMAGE_STATUS.TAKEN;
+            if(imageFileCurrent!= null && !imageFileCurrent.getAbsolutePath().equalsIgnoreCase(imageFile.getAbsolutePath())) {
+                imageFileCurrent.delete();
+            }
             imageFileCurrent = imageFile;
         }
     }
@@ -168,4 +182,6 @@ public class SignUpActivity extends Activity  implements View.OnClickListener{
     public void onClickRetake(View v) {
         checkPermissionAndTakeImage();
     }
+
+
 }

@@ -5,17 +5,21 @@ package com.stfo.carddrop.models;
  */
 
 public class User {
+    private String id;
     private String name;
     private String detail;
     private long phone;
     private String cardImageId;
 
-    public User(String name, String detail, long phone, String cardImageId) {
+    public User(String id, String name, String detail, long phone, String cardImageId) {
+        this.id = id;
         this.name = name;
         this.detail = detail;
         this.phone = phone;
         this.cardImageId = cardImageId;
     }
+
+    public User() {}
 
     public String getName() {
         return name;
@@ -47,5 +51,20 @@ public class User {
 
     public void setCardImageId(String cardImageId) {
         this.cardImageId = cardImageId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void copyFrom(User user) {
+        this.name = user.name;
+        this.detail = user.detail;
+        this.phone = user.phone;
+        this.cardImageId = user.cardImageId;
     }
 }

@@ -27,11 +27,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".activities.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
         <activity android:name=".activities.HomeActivity"/>
+
         <activity android:name=".activities.SignUpActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
         <activity android:name=".activities.SignUpDetails"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
