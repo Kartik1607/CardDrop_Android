@@ -20,18 +20,24 @@ import android.view.View;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.stfo.carddrop.R;
+import com.stfo.carddrop.adapters.CardAdapter;
+import com.stfo.carddrop.models.User;
 import com.stfo.carddrop.utils.Constants;
 import com.stfo.carddrop.utils.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Kartik on 10/8/2017.
@@ -40,6 +46,7 @@ import org.json.JSONObject;
 public class HomeActivity extends Activity implements View.OnClickListener{
 
     private RecyclerView recyclerView;
+    private CardAdapter recylerViewAdapter;
     private FloatingActionButton buttonFindNearby;
     private FloatingActionButton buttonDropCard;
     private View content;
@@ -53,6 +60,41 @@ public class HomeActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_home);
         init();
         initUserId();
+        loadPickedCard();
+    }
+
+    private void loadPickedCard() {
+
+        VolleySingleton volley = VolleySingleton.getInstance(this);
+        Uri buildUri = Uri.parse(Constants.API_URL).buildUpon()
+                .appendPath("pickedCards").appendPath(userId).build();
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, buildUri.toString(),
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                       recylerViewAdapter.setData(parseJSON(response));
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Snackbar.make(content, "Something went wrong", Snackbar.LENGTH_LONG).show();
+                    }
+                }
+        );
+
+        volley.addToRequestQueue(request);
+    }
+
+    private List<User> parseJSON(JSONArray object) {
+        List<User> data = new ArrayList<>();
+        try {
+            for (int i = 0; i < object.length(); ++i) {
+                JSONObject current = object.getJSONObject(i);
+            }
+        }catch (JSONException e) {}
+        return data;
     }
 
     private void initUserId() {
@@ -68,6 +110,7 @@ public class HomeActivity extends Activity implements View.OnClickListener{
         buttonFindNearby.setOnClickListener(this);
         content = findViewById(android.R.id.content);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        recylerViewAdapter = new CardAdapter(this, new ArrayList<User>());
     }
 
     @Override
