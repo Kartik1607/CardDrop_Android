@@ -70,7 +70,7 @@ public class HomeActivity extends Activity implements View.OnClickListener{
         VolleySingleton volley = VolleySingleton.getInstance(this);
         Uri buildUri = Uri.parse(Constants.API_URL).buildUpon()
                 .appendPath("pickedCards").appendPath(userId).build();
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, buildUri.toString(),
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, buildUri.toString(),
                 null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -123,7 +123,7 @@ public class HomeActivity extends Activity implements View.OnClickListener{
         int id = v.getId();
         if(id == R.id.button_dropCard) {
             dropCard();
-        }else if(id == R.id.button_pick) {
+        }else if(id == R.id.button_FindNearby) {
             startActivity(new Intent(this, NearbyCards.class));
         }
     }

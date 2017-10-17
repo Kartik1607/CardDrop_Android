@@ -151,7 +151,7 @@ public class LoginActivity extends Activity {
                     User user = Constants.parseUser(fullResponse.getJSONObject("user"));
                     SharedPreferences preferences = getSharedPreferences(getString(R.string.preference_User),MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString(getString(R.string.preference_User_ID), "NA");
+                    editor.putString(getString(R.string.preference_User_ID), user.getId());
                     editor.commit();
                     startActivity(new Intent(this, HomeActivity.class));
                     finish();
