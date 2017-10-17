@@ -3,6 +3,7 @@ package com.stfo.carddrop.activities;
 import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -14,6 +15,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -91,7 +93,8 @@ public class HomeActivity extends Activity implements View.OnClickListener{
         List<User> data = new ArrayList<>();
         try {
             for (int i = 0; i < object.length(); ++i) {
-                JSONObject current = object.getJSONObject(i);
+                JSONObject current = object.getJSONObject(i).getJSONObject("dropperUser");
+                data.add(Constants.parseUser(current));
             }
         }catch (JSONException e) {}
         return data;
@@ -110,7 +113,9 @@ public class HomeActivity extends Activity implements View.OnClickListener{
         buttonFindNearby.setOnClickListener(this);
         content = findViewById(android.R.id.content);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        recylerViewAdapter = new CardAdapter(this, new ArrayList<User>());
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recylerViewAdapter = new CardAdapter(this, new ArrayList<User>(),1);
+        recyclerView.setAdapter(recylerViewAdapter);
     }
 
     @Override
@@ -118,6 +123,8 @@ public class HomeActivity extends Activity implements View.OnClickListener{
         int id = v.getId();
         if(id == R.id.button_dropCard) {
             dropCard();
+        }else if(id == R.id.button_pick) {
+            startActivity(new Intent(this, NearbyCards.class));
         }
     }
 
