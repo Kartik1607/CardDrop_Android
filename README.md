@@ -22,9 +22,9 @@ CardDrop for Android uses a number of open source projects to work properly:
 * [Android](https://www.android.com/) - Duh! :stuck_out_tongue_winking_eye:
 * [Volley](https://github.com/google/volley) - Preferred network library.
 * [Android-Upload-Service](https://github.com/gotev/android-upload-service) - Image Upload service library.
-* [FAB] (https://github.com/Clans/FloatingActionButton) - Floating Action Button
-* [Glide] (https://github.com/bumptech/glide) - Image Loading Library
-* [Gradle] (https://gradle.org/) - Build Tool for Android.
+* [FAB](https://github.com/Clans/FloatingActionButton) - Floating Action Button
+* [Glide](https://github.com/bumptech/glide) - Image Loading Library
+* [Gradle](https://gradle.org/) - Build Tool for Android.
 
 ### Installation
 
